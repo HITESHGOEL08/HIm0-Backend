@@ -5,8 +5,7 @@ import User, { UserRoles } from "../../src/models/User";
 
 import UserRepo from "../../src/repos/UserRepo";
 import PwdUtil from "../../src/util/PwdUtil";
-
-import Paths from "./Paths";
+import Paths from "../../src/common/Paths";
 
 // Login Credentials
 const LoginCreds = {

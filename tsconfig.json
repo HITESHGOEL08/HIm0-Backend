@@ -11,7 +11,8 @@
     "paths": {
       "@src/*": ["src/*"]
     },
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "rootDir": "./src",
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "spec/**/*.ts", "build.ts"],
   "exclude": ["src/public/", "node_modules", "dist"]
