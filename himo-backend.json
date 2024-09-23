@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "himo-backedn",
+            "script": "npm",
+            "args": "start"
+        }
+    ]
+}
