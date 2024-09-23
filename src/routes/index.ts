@@ -3,8 +3,8 @@ import { Router } from "express";
 import Paths from "@src/common/Paths";
 
 import adminMw from "./middleware/adminMw";
-import AuthController from "@src/controllers/AuthController";
-import UserController from "../controllers/UserController";
+import AuthController from "../controllers/authController";
+import UserController from "../controllers/userController";
 import BetController from "../controllers/betController";
 
 // **** Variables **** //
