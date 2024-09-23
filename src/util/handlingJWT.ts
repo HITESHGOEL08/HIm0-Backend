@@ -1,23 +1,22 @@
-import { RouteError } from "@src/common/classes";
-import EnvVars from "@src/common/EnvVars";
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
+import { RouteError } from "../common/classes";
+import EnvVars from "../common/EnvVars";
+import HttpStatusCodes from "../common/HttpStatusCodes";
 import jsonwebtoken from "jsonwebtoken";
-import { generateKeyPairSync } from 'crypto'
+import { generateKeyPairSync } from "crypto";
 
 export const Errors = {
   ParamFalsey: "Param is falsey",
   Validation: "JSON-web-token validation failed.",
 } as const;
 
-
-export function generatePrivateKeyStub (): string {
-  const { privateKey } = generateKeyPairSync('rsa', {
+export function generatePrivateKeyStub(): string {
+  const { privateKey } = generateKeyPairSync("rsa", {
     modulusLength: 2048,
-  })
+  });
   return privateKey.export({
-    format: 'pem',
-    type: 'pkcs1',
-  }) as string
+    format: "pem",
+    type: "pkcs1",
+  }) as string;
 }
 
 const AccessTokenOptions = {

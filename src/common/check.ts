@@ -1,4 +1,4 @@
-import { ValidationErr } from "@src/common/classes";
+import { ValidationErr } from "./classes";
 
 type TReqObj = Record<string, unknown>;
 
@@ -128,7 +128,6 @@ function _checkWrapper<T>(
   // Throw error
   throw new ValidationErr(params);
 }
-
 
 // **** Export Default **** //
 

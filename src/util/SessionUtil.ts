@@ -1,7 +1,7 @@
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
-import { RouteError } from "@src/common/classes";
-import EnvVars from "@src/common/EnvVars";
-import { IReq, IRes } from "@src/common/types";
+import HttpStatusCodes from "../common/HttpStatusCodes";
+import { RouteError } from "../common/classes";
+import EnvVars from "../common/EnvVars";
+import { IReq, IRes } from "../common/types";
 import { decordJWT, Errors, generateJWT } from "./handlingJWT";
 
 /**

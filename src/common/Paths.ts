@@ -1,5 +1,3 @@
-import DeletedUser from "@src/models/DeletedUserData";
-
 export default {
   Base: "/api",
   Health: "/health",

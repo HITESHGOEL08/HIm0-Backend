@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import Paths from "@src/common/Paths";
+import Paths from "../common/Paths";
 
 import adminMw from "./middleware/adminMw";
 import AuthController from "../controllers/authController";

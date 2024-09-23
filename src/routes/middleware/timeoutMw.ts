@@ -1,4 +1,4 @@
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
+import HttpStatusCodes from "../../common/HttpStatusCodes";
 import { Request, Response, NextFunction } from "express";
 
 export const timeoutMw = (timeoutDuration: number) => {
@@ -7,7 +7,9 @@ export const timeoutMw = (timeoutDuration: number) => {
       console.log(
         `Request has timed out after ${timeoutDuration / 1000} seconds.`
       );
-      res.status(HttpStatusCodes.GATEWAY_TIMEOUT).send("Service unavailable. Please try again later.");
+      res
+        .status(HttpStatusCodes.GATEWAY_TIMEOUT)
+        .send("Service unavailable. Please try again later.");
     });
     next();
   };

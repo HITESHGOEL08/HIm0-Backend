@@ -4,14 +4,14 @@ import helmet from "helmet";
 import express, { Request, Response, NextFunction } from "express";
 import logger from "jet-logger";
 import "express-async-errors";
-import BaseRouter from "@src/routes";
-import Paths from "@src/common/Paths";
-import EnvVars from "@src/common/EnvVars";
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
-import { NodeEnvs } from "@src/common/misc";
-import { RouteError } from "@src/common/classes";
+import BaseRouter from "./routes";
+import Paths from "./common/Paths";
+import EnvVars from "./common/EnvVars";
+import HttpStatusCodes from "./common/HttpStatusCodes";
+import { NodeEnvs } from "./common/misc";
+import { RouteError } from "./common/classes";
 import cors from "cors";
-import Logging from "@src/util/logging";
+import Logging from "./util/logging";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger";
@@ -29,7 +29,7 @@ const corsOptions = {
 // Expose lodash globally
 
 const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000,// 5 minutes
+  windowMs: 1 * 60 * 1000, // 5 minutes
   limit: 50, // each IP can make up to 10 requests per `windowsMs` (5 minutes)
   standardHeaders: false, // add the `RateLimit-*` headers to the response
   legacyHeaders: false, // remove the `X-RateLimit-*` headers from the response

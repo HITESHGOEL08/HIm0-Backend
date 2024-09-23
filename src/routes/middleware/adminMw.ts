@@ -5,11 +5,11 @@
 import { NextFunction } from "express";
 import { JwtPayload } from "jsonwebtoken";
 
-import HttpStatusCodes from "@src/common/HttpStatusCodes";
-import { ISessionUser, UserRoles } from "@src/models/User";
+import HttpStatusCodes from "../../common/HttpStatusCodes";
+import { ISessionUser, UserRoles } from "../../models/User";
 
 import { IReq, IRes } from "../../common/types";
-import { decordJWT } from "@src/util/handlingJWT";
+import { decordJWT } from "../../util/handlingJWT";
 
 // **** Variables **** //
 

@@ -4,10 +4,10 @@ import SessionUtil from "../util/SessionUtil";
 import { Users } from "../models/UserData";
 import { sendResponseObject } from "../util/misc";
 import PwdUtil from "../util/PwdUtil";
-import UserCreds from "@src/models/UserCreds";
-import { generateJWT } from "@src/util/handlingJWT";
-import { IReq, IRes } from "@src/common/types";
-import check from "@src/common/check";
+import UserCreds from "../models/UserCreds";
+import { generateJWT } from "../util/handlingJWT";
+import { IReq, IRes } from "../common/types";
+import check from "../common/check";
 
 // **** Functions **** //
 

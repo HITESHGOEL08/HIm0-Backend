@@ -1,7 +1,7 @@
 import "./pre-start";
 import logger from "jet-logger";
 
-import EnvVars from "@src/common/EnvVars";
+import EnvVars from "./common/EnvVars";
 import server from "./server";
 
 const SERVER_START_MSG =

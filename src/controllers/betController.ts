@@ -1,4 +1,4 @@
-import Bet from "@src/models/Bet";
+import Bet from "../models/Bet";
 import { Request, Response } from "express";
 
 const placeBet = async (req: Request, res: Response) => {

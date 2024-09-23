@@ -1,4 +1,3 @@
-import EnvVars from "@src/common/EnvVars";
 import crypto from "crypto";
 
 export function getRandomInt(): number {

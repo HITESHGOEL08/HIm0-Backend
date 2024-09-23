@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid";
 
 // Define the userCredsSchema schema
 const userCredsSchema = new mongoose.Schema({
