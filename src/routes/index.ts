@@ -4,7 +4,7 @@ import Paths from "../common/Paths";
 
 import adminMw from "./middleware/adminMw";
 import AuthController from "../controllers/authController";
-import UserController from "../controllers/userController";
+// import UserController from "../controllers/userController";
 import BetController from "../controllers/betController";
 
 // **** Variables **** //
@@ -29,10 +29,10 @@ apiRouter.use(Paths.Auth.Base, authRouter);
 const userRouter = Router();
 
 // User Routes
-userRouter.post(Paths.Users.Get, UserController.getAll);
-userRouter.post(Paths.Users.Add, UserController.add);
-userRouter.put(Paths.Users.Update, UserController.update);
-userRouter.post(Paths.Users.Delete, UserController.delete);
+// userRouter.post(Paths.Users.Get, UserController.getAll);
+// userRouter.post(Paths.Users.Add, UserController.add);
+// userRouter.put(Paths.Users.Update, UserController.update);
+// userRouter.post(Paths.Users.Delete, UserController.delete);
 
 // Add UserRouter
 apiRouter.use(Paths.Users.Base, adminMw, userRouter);

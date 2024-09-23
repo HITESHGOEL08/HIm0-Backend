@@ -1,59 +1,56 @@
-import { RouteError } from '@src/common/classes';
-import HttpStatusCodes from '@src/common/HttpStatusCodes';
+// import { RouteError } from '@src/common/classes';
+// import HttpStatusCodes from '@src/common/HttpStatusCodes';
 
-import UserRepo from '@src/repos/UserRepo';
-import { IUser } from '@src/models/User';
+// import UserRepo from '@src/repos/UserRepo';
+// import { IUser } from '@src/models/User';
 
+// // **** Variables **** //
 
-// **** Variables **** //
+// export const USER_NOT_FOUND_ERR = 'User not found';
 
-export const USER_NOT_FOUND_ERR = 'User not found';
+// // **** Functions **** //
 
+// /**
+//  * Get all users.
+//  */
+// function getAll(): Promise<IUser[]> {
+//   return UserRepo.getAll();
+// }
 
-// **** Functions **** //
+// /**
+//  * Add one user.
+//  */
+// function addOne(user: IUser): Promise<void> {
+//   return UserRepo.add(user);
+// }
 
-/**
- * Get all users.
- */
-function getAll(): Promise<IUser[]> {
-  return UserRepo.getAll();
-}
+// /**
+//  * Update one user.
+//  */
+// async function updateOne(user: IUser): Promise<void> {
+//   const persists = await UserRepo.persists(user.id);
+//   if (!persists) {
+//     throw new RouteError(HttpStatusCodes.NOT_FOUND, USER_NOT_FOUND_ERR);
+//   }
+//   return UserRepo.update(user);
+// }
 
-/**
- * Add one user.
- */
-function addOne(user: IUser): Promise<void> {
-  return UserRepo.add(user);
-}
+// /**
+//  * Delete a user by their id.
+//  */
+// async function _delete(id: number): Promise<void> {
+//   const persists = await UserRepo.persists(id);
+//   if (!persists) {
+//     throw new RouteError(HttpStatusCodes.NOT_FOUND, USER_NOT_FOUND_ERR);
+//   }
+//   return UserRepo.delete(id);
+// }
 
-/**
- * Update one user.
- */
-async function updateOne(user: IUser): Promise<void> {
-  const persists = await UserRepo.persists(user.id);
-  if (!persists) {
-    throw new RouteError(HttpStatusCodes.NOT_FOUND, USER_NOT_FOUND_ERR);
-  }
-  return UserRepo.update(user);
-}
+// // **** Export default **** //
 
-/**
- * Delete a user by their id.
- */
-async function _delete(id: number): Promise<void> {
-  const persists = await UserRepo.persists(id);
-  if (!persists) {
-    throw new RouteError(HttpStatusCodes.NOT_FOUND, USER_NOT_FOUND_ERR);
-  }
-  return UserRepo.delete(id);
-}
-
-
-// **** Export default **** //
-
-export default {
-  getAll,
-  addOne,
-  updateOne,
-  delete: _delete,
-} as const;
+// export default {
+//   getAll,
+//   addOne,
+//   updateOne,
+//   delete: _delete,
+// } as const;
