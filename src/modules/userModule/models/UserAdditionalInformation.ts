@@ -1,5 +1,5 @@
+import DeletedUser from "@src/modules/authModule/models/DeletedUserData";
 import mongoose from "mongoose";
-import DeletedUser from "./DeletedUserData";
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -12,27 +12,29 @@ const userSchema = new mongoose.Schema({
     ref: "Users",
     required: true,
   },
-  emailVerified:{
+  emailVerified: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  phoneVerified:{
+  phoneVerified: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  dob:{
+  dob: {
     type: String,
   },
-  gender:{
+  gender: {
     type: String,
   },
-  phoneNumber:{
+  phoneNumber: {
     type: String,
   },
-  hobbiesId: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Metadata', // Reference to the Metadata model
-  }],
+  hobbiesId: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Metadata", // Reference to the Metadata model
+    },
+  ],
   createdDate: {
     type: Date,
     default: Date.now,
@@ -115,7 +117,13 @@ userSchema.post("findOneAndDelete", async function (doc) {
   }
 });
 
-const UserAdditionalInformation = mongoose.model("UserAdditionalInformation", userSchema);
-const UserAdditionalInformationHistory = mongoose.model("UserAdditionalInformationHistory", historySchema);
+const UserAdditionalInformation = mongoose.model(
+  "UserAdditionalInformation",
+  userSchema
+);
+const UserAdditionalInformationHistory = mongoose.model(
+  "UserAdditionalInformationHistory",
+  historySchema
+);
 
 export { UserAdditionalInformation };

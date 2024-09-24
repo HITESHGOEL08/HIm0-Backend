@@ -6,9 +6,8 @@ import { logFunctionName } from "@src/util/logging";
 import { sendResponseObject } from "@src/util/misc";
 import PwdUtil from "@src/util/PwdUtil";
 import SessionUtil from "@src/util/SessionUtil";
-import UserCreds from "../models/UserCreds";
 import { Users } from "../models/UserData";
-
+import UserCreds from "../models/UserCreds";
 
 // import { logFunctionName } from "../util/logging";
 
