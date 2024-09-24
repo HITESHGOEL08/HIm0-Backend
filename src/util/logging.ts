@@ -12,12 +12,19 @@ const transport: DailyRotateFile = new DailyRotateFile({
   dirname: EnvVars.logging.transportServerPath,
 });
 
+const timezoned = () => {
+  return new Date().toLocaleString("en-US");
+};
+
 // Configure Winston logger
 export const logger = winston.createLogger({
   level: "verbose",
   format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()
+    winston.format.simple(),
+    winston.format.errors(),
+    winston.format.timestamp({ format: timezoned }),
+    winston.format.json(),
+    winston.format.align()
   ),
   transports: [
     new winston.transports.Console(),
@@ -35,7 +42,7 @@ export const logFunctionName = (func: any, ...args: any) => {
   logger.info("");
 };
 
-export const requestLogger =  (req: any, res: any, next: any) => {
+export const requestLogger = (req: any, res: any, next: any) => {
   const { method, url, headers } = req;
   const start = Date.now();
 
@@ -50,8 +57,6 @@ export const requestLogger =  (req: any, res: any, next: any) => {
     message: "Request received",
     headers,
   });
-
-
 
   let originalWrite = res.write;
   let originalEnd = res.end;
@@ -73,10 +78,10 @@ export const requestLogger =  (req: any, res: any, next: any) => {
   };
 
   // Middleware to log response details
-  res.on("finish",  async () => {
+  res.on("finish", async () => {
     const duration = Date.now() - start;
     const { statusCode, statusMessage, headers } = res;
-  
+
     logger.info("----------------");
     logger.info({
       responseBody:
@@ -100,7 +105,6 @@ export const requestLogger =  (req: any, res: any, next: any) => {
     await closeDatabaseConnection(req, res, next);
     console.log();
     console.log();
-    
   });
 
   // Call the next middleware
