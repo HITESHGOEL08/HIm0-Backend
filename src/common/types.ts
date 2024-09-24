@@ -1,5 +1,6 @@
+import { ISessionUser } from "@src/modules/userModule/models/User";
 import { Response, Request } from "express";
-import { ISessionUser } from "../models/User";
+
 
 type TObj = Record<string, unknown>;
 

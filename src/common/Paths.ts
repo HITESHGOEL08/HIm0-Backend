@@ -1,6 +1,13 @@
 export default {
   Base: "/api",
   Health: "/health",
+  Admin: { Base: "/admin" },
+  MetaData: {
+    Base: "/metadata",
+    AddAllMetaData: "/addAll",
+    AddMetaData: "/add",
+    GetMetadata: "/getMetadata",
+  },
   Auth: {
     Base: "/auth",
     CheckUser: "/inquireUser",

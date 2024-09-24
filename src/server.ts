@@ -2,23 +2,23 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
 import express, { Request, Response, NextFunction } from "express";
-import logger from "jet-logger";
 import "express-async-errors";
 import BaseRouter from "./routes";
+
 import Paths from "./common/Paths";
 import EnvVars from "./common/EnvVars";
 import HttpStatusCodes from "./common/HttpStatusCodes";
 import { NodeEnvs } from "./common/misc";
 import { RouteError } from "./common/classes";
 import cors from "cors";
-import Logging from "./util/logging";
-import mongoose from "mongoose";
+import Logging, { logger } from "./util/logging";
+
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger";
 import { rateLimit } from "express-rate-limit";
 import { slowDown } from "express-slow-down";
-import timeout from "connect-timeout";
-import { timeoutMw } from "./routes/middleware/timeoutMw";
+import { timeoutMw } from "./middleware/timeoutMw";
+import { connectToDatabase } from "./middleware/dbMW";
 
 const app = express();
 const corsOptions = {
@@ -42,22 +42,16 @@ const slowDownLimiter = slowDown({
   maxDelayMs: 5000, // max global delay of 5 seconds
 });
 
+app.use(express.json());
+app.use(connectToDatabase);
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(EnvVars.CookieProps.Secret));
 app.use(limiter);
 app.use(slowDownLimiter);
 app.use(timeoutMw(EnvVars.globalTimeout));
 
-// Basic middleware
-app.use(express.json());
 app.use(Logging.requestLogger);
-app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(EnvVars.CookieProps.Secret));
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-mongoose
-  .connect(EnvVars.mongoDBURL, { dbName: "raha" })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
@@ -68,11 +62,13 @@ if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
 if (EnvVars.NodeEnv === NodeEnvs.Production.valueOf()) {
   app.use(helmet());
 }
+
 app.get(Paths.Health, (req, res) => {
   res.status(200).send({ status: "UP" });
 });
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use(Paths.Base, BaseRouter);
+app.use(Paths.Base, connectToDatabase, BaseRouter);
 
 app.use(
   (
@@ -83,7 +79,7 @@ app.use(
     next: NextFunction
   ) => {
     if (EnvVars.NodeEnv !== NodeEnvs.Test.valueOf()) {
-      logger.err(err, true);
+      logger.error({ error: err });
     }
     let status = HttpStatusCodes.BAD_REQUEST;
     if (err instanceof RouteError) {

@@ -1,3 +1,5 @@
+import EnvVars from "@src/common/EnvVars";
+import { closeDatabaseConnection } from "@src/middleware/dbMW";
 import * as winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
@@ -5,14 +7,14 @@ const transport: DailyRotateFile = new DailyRotateFile({
   filename: "application-%DATE%.log",
   datePattern: "YYYY-MM-DD-HH",
   zippedArchive: true,
-  maxSize: "20m",
-  maxFiles: "14d",
-  dirname: "src/logs",
+  maxSize: "30m",
+  maxFiles: "30d",
+  dirname: EnvVars.logging.transportServerPath,
 });
 
 // Configure Winston logger
 export const logger = winston.createLogger({
-  level: "info",
+  level: "verbose",
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
@@ -20,25 +22,26 @@ export const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     transport,
-    new winston.transports.File({ filename: "./src/logs/server.log" }),
+    new winston.transports.File({ filename: EnvVars.logging.serverPath }),
   ],
 });
 
-const logFunctionName = (func: any, ...args: any) => {
-  console.log({
-    func: func?.name ? func?.name : func,
-    ...args,
-  });
+export const logFunctionName = (func: any, ...args: any) => {
+  logger.info("");
   logger.info({
     func: func?.name ? func?.name : func,
     ...args,
   });
+  logger.info("");
 };
 
-const requestLogger = (req: any, res: any, next: any) => {
+export const requestLogger =  (req: any, res: any, next: any) => {
   const { method, url, headers } = req;
   const start = Date.now();
+
   // Log the request details
+  console.log();
+  console.log();
   logger.info("");
   logger.info("----------API REQUEST START------");
   logger.info({
@@ -47,6 +50,8 @@ const requestLogger = (req: any, res: any, next: any) => {
     message: "Request received",
     headers,
   });
+
+
 
   let originalWrite = res.write;
   let originalEnd = res.end;
@@ -68,18 +73,19 @@ const requestLogger = (req: any, res: any, next: any) => {
   };
 
   // Middleware to log response details
-  res.on("finish", () => {
+  res.on("finish",  async () => {
     const duration = Date.now() - start;
     const { statusCode, statusMessage, headers } = res;
-
+  
     logger.info("----------------");
     logger.info({
       responseBody:
         statusCode !== 200 || statusCode !== 201 || url.includes("api-docs")
           ? responseBody.trim()
-          : JSON.parse(responseBody.trim()),
+          : responseBody.trim(),
     });
     logger.info("----------------");
+
     logger.info({
       method,
       url,
@@ -91,10 +97,14 @@ const requestLogger = (req: any, res: any, next: any) => {
     });
     logger.info("----------API REQUEST END------");
     logger.info("");
+    await closeDatabaseConnection(req, res, next);
+    console.log();
+    console.log();
+    
   });
 
   // Call the next middleware
   next();
 };
 
-export default { logFunctionName, requestLogger };
+export default { logFunctionName, requestLogger } as const;

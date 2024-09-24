@@ -9,11 +9,12 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "paths": {
-      "@src/*": ["src/*"]
+      "@src/*": ["./src/*"]
     },
     "useUnknownInCatchVariables": false,
     "rootDir": "./src",
+    "resolveJsonModule": true,
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "spec/**/*.ts", "build.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "spec/**/*.ts", "src/build/build.ts"],
   "exclude": ["src/public/", "node_modules", "dist"]
 }

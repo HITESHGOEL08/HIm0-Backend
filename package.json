@@ -2,13 +2,13 @@
   "name": "himo-backend",
   "version": "0.0.0",
   "scripts": {
-    "build": "npx ts-node build.ts",
+    "build": "npx ts-node src/build/build.ts",
     "lint": "npx eslint --ext .ts src/",
-    "lint:tests": "npx eslint --ext .ts spec/",
+    "lint:tests": "npx eslint --ext .ts src/spec/",
     "start": "npm install --force && npm run build && node -r module-alias/register ./dist --env=production",
     "dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json",
-    "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec"
+    "test": "nodemon --config ./src/spec/nodemon.json",
+    "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./src/spec"
   },
   "nodemonConfig": {
     "watch": [
@@ -34,7 +34,6 @@
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.5",
     "express": "^4.20.0",
-    "express-async-errors": "^3.1.1",
     "express-rate-limit": "^7.4.0",
     "express-slow-down": "^2.0.3",
     "helmet": "^7.1.0",
@@ -81,6 +80,7 @@
     "@typescript-eslint/parser": "^8.5.0",
     "eslint": "^9.10.0",
     "eslint-plugin-node": "^11.1.0",
+    "express-async-errors": "^3.1.1",
     "find": "^0.3.0",
     "fs-extra": "^11.2.0",
     "jasmine": "^5.3.0",

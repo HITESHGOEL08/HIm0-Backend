@@ -1,0 +1,93 @@
+{
+    "interestIN": [
+        {
+            "title": "Long Time",
+            "key": "INTERESTIN",
+            "description": "Long Time"
+        },
+        {
+            "title": "One Night Stand",
+            "key": "INTERESTIN",
+            "description": "One Night Stand"
+        },
+        {
+            "title": "Swapping",
+            "key": "INTERESTIN",
+            "description": "Swapping"
+        },
+        {
+            "title": "Swingers",
+            "key": "INTERESTIN",
+            "description": "Swingers"
+        }
+    ],
+    "gender": [
+        {
+            "title": "Male",
+            "key": "GENDER",
+            "description": "Male"
+        },
+        {
+            "title": "Female",
+            "key": "GENDER",
+            "description": "Female"
+        },
+        {
+            "title": "Couple",
+            "key": "GENDER",
+            "description": "Couple"
+        },
+        {
+            "title": "Swingers",
+            "key": "GENDER",
+            "description": "Swingers"
+        },
+        {
+            "title": "Transgender",
+            "key": "GENDER",
+            "description": "Transgender"
+        }
+    ],
+    "lookingFor": [
+        {
+            "title": "Male",
+            "key": "LOOKINGFOR",
+            "description": "Male"
+        },
+        {
+            "title": "Female",
+            "key": "LOOKINGFOR",
+            "description": "Female"
+        },
+        {
+            "title": "Couple",
+            "key": "LOOKINGFOR",
+            "description": "Couple"
+        },
+        {
+            "title": "Swingers",
+            "key": "LOOKINGFOR",
+            "description": "Swingers"
+        },
+        {
+            "title": "Shemale",
+            "key": "LOOKINGFOR",
+            "description": "Shemale"
+        },
+        {
+            "title": "Gay",
+            "key": "LOOKINGFOR",
+            "description": "Gay"
+        },
+        {
+            "title": "Bisexual",
+            "key": "LOOKINGFOR",
+            "description": "Bisexual"
+        },
+        {
+            "title": "Transgender",
+            "key": "LOOKINGFOR",
+            "description": "Transgender"
+        }
+    ]
+}

@@ -1,5 +1,6 @@
-import { IUser } from '@src/models/User';
-import { getRandomInt } from '@src/util/misc';
+
+
+import { IUser } from '@src/modules/userModule/models/User';
 import orm from './MockOrm';
 
 
@@ -91,3 +92,7 @@ export default {
   update,
   delete: delete_,
 } as const;
+function getRandomInt(): number {
+  throw new Error('Function not implemented.');
+}
+
