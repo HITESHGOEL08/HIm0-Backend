@@ -1,7 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+
+interface IDeletedUser extends Document {
+  _id: mongoose.Types.ObjectId;
+  userName: string;
+  _userId: mongoose.Schema.Types.ObjectId;
+  email: string;
+  name: string;
+  createdDate: any;
+  modifiedDate: any;
+}
 
 // Define the user schema
-const deletedUserSchema = new mongoose.Schema({
+const deletedUserSchema = new Schema<IDeletedUser>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     auto: true,
@@ -33,6 +43,9 @@ const deletedUserSchema = new mongoose.Schema({
   },
 });
 
-const DeletedUser = mongoose.model("DeletedUser", deletedUserSchema);
+const DeletedUser = mongoose.model<IDeletedUser>(
+  "DeletedUser",
+  deletedUserSchema
+);
 
 export default DeletedUser;

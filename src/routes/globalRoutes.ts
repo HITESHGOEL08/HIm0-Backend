@@ -11,5 +11,8 @@ metaRouter.post(Paths.MetaData.GetMetadata, MetaDataController.getMetadata);
 
 globalApiRouter.use(Paths.MetaData.Base, metaRouter);
 
+const dumpRouter = Router();
+globalApiRouter.use(dumpRouter);
+
 // **** Export default **** //
 export default globalApiRouter;

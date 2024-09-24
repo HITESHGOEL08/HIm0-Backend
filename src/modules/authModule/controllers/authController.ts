@@ -110,11 +110,13 @@ const createUser = async (req: IReq, res: IRes) => {
     const result = await newUser.save();
     logFunctionName(createUser.name, "result user creation", result);
 
+    const { userCredId, ...rest } = result.toObject();
+
     const response = sendResponseObject(
       HttpStatusCodes.OK,
       "Sucess",
       "User Created",
-      result
+      rest
     );
 
     return res.status(HttpStatusCodes.OK).json(response);
@@ -132,6 +134,7 @@ const createUser = async (req: IReq, res: IRes) => {
 /**
  * Login a user.
  */
+
 const login = async (req: IReq, res: IRes) => {
   const [userName, password] = check.isStr(req.body, ["userName", "password"]);
 
@@ -151,7 +154,7 @@ const login = async (req: IReq, res: IRes) => {
     }
 
     const getPassword = await UserCreds.findById(checkUser?.userCredId)
-      .select("password")
+      .select("password isAdmin adminType")
       .exec();
 
     if (!getPassword?.password) {
@@ -180,8 +183,8 @@ const login = async (req: IReq, res: IRes) => {
     const { _id, userCredId, __v, ...rest } = checkUser.toObject();
 
     const tokens = await Promise.all([
-      generateJWT(rest, "Access"),
-      generateJWT(rest, "Refresh"),
+      generateJWT({ adminType: getPassword?.adminType, ...rest }, "Access"),
+      generateJWT({ adminType: getPassword?.adminType, ...rest }, "Refresh"),
     ]);
 
     const userResponse = sendResponseObject(
@@ -192,6 +195,7 @@ const login = async (req: IReq, res: IRes) => {
         ...rest,
         accessToken: tokens[0],
         refreshToken: tokens[1],
+        adminType: getPassword?.adminType,
       }
     );
 
@@ -207,7 +211,6 @@ const login = async (req: IReq, res: IRes) => {
     return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json(response);
   }
 };
-
 /**
  * Logout the user.
  */
