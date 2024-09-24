@@ -41,7 +41,7 @@ const slowDownLimiter = slowDown({
   delayMs: (hits) => hits * 300, // add 200 ms of delay to every request after the 10th
   maxDelayMs: 5000, // max global delay of 5 seconds
 });
-
+app.enable("trust proxy");
 app.use(express.json());
 app.use(connectToDatabase);
 app.use(cors(corsOptions));
