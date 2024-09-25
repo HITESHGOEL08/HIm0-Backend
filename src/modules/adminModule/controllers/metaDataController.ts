@@ -46,6 +46,7 @@ const initializeMetadata = async (
     res.status(HttpStatusCodes.BAD_REQUEST).json({ status: "Auth Failed" });
   }
 };
+
 const getMetadata = async (req: Request, res: Response, next: NextFunction) => {
   const reqBody = req.body;
 
@@ -87,4 +88,56 @@ const getMetadata = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { initializeMetadata, getMetadata } as const;
+const addMetaData = async (req: Request, res: Response, next: NextFunction) => {
+  const reqBody = req.body;
+
+  logFunctionName(getMetadata, "reqBody--> ", reqBody);
+
+  const [key, title, description] = check.isStr(reqBody, [
+    "key",
+    "title",
+    "description",
+  ]);
+
+  try {
+    if (!key || !title) {
+      const response = sendResponseObject(
+        HttpStatusCodes.BAD_REQUEST,
+        "Failed",
+        "Error Happened - key | title parameter not found"
+      );
+      return res.status(HttpStatusCodes.BAD_REQUEST).json(response);
+    }
+    const data = await Metadata.updateOne(
+      { key, title }, // Query to find the document
+      {
+        $setOnInsert: {
+          description,
+          createdDate: new Date(),
+          modifiedDate: new Date(),
+        },
+      },
+      { upsert: true } // Upsert option
+    ).exec();
+
+    logFunctionName(getMetadata, "data response--> ", data);
+    const response = sendResponseObject(
+      HttpStatusCodes.OK,
+      "Sucess",
+      "Data found",
+      data
+    );
+    return res.status(HttpStatusCodes.OK).json(response);
+  } catch (error) {
+    logFunctionName(getMetadata, "error --->  ", error);
+
+    const response = sendResponseObject(
+      HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed",
+      "Error Happened"
+    );
+    return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json(response);
+  }
+};
+
+export default { initializeMetadata, getMetadata, addMetaData } as const;

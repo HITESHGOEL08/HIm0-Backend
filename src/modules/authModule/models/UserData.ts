@@ -1,8 +1,18 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import DeletedUser from "./DeletedUserData";
 
+interface IUser extends Document {
+  _id: mongoose.Types.ObjectId;
+  userName: string;
+  userCredId: mongoose.Types.ObjectId;
+  name: string;
+  email: string;
+  createdDate: any;
+  modifiedDate: any;
+}
+
 // Define the user schema
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<IUser>({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     auto: true,
@@ -117,7 +127,7 @@ userSchema.post("findOneAndDelete", async function (doc) {
   }
 });
 
-const Users = mongoose.model("Users", userSchema);
+const Users = mongoose.model<IUser>("Users", userSchema);
 const UserHistory = mongoose.model("UserHistory", historySchema);
 
 export { Users, UserHistory };

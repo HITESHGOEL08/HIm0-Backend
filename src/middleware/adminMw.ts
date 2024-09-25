@@ -1,41 +1,12 @@
-/**
- * Middleware to verify user logged in and is an an admin.
- */
-
-import { NextFunction } from "express";
-import { JwtPayload } from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express";
 
 import HttpStatusCodes from "../common/HttpStatusCodes";
 
-
-import { IReq, IRes } from "../common/types";
 import { decordJWT } from "../util/handlingJWT";
-import { ISessionUser } from "@src/modules/userModule/models/User";
-
-// **** Variables **** //
 
 const USER_UNAUTHORIZED_ERR = "User not authorized to perform this action";
 
-type TSessionData = ISessionUser & JwtPayload;
-
-/**
- * See note at beginning of file.
- */
-async function adminMw(req: IReq, res: IRes, next: NextFunction) {
-  // Get session data
-  // const sessionData = await SessionUtil.getSessionData<TSessionData>(req);
-  // // Set session data to locals
-  // if (
-  //   typeof sessionData === 'object' &&
-  //   sessionData?.role === UserRoles.Admin
-  // ) {
-  //   res.locals.sessionUser = sessionData;
-  //   return next();
-  // // Return an unauth error if user is not an admin
-  // } else {
-
-  // }
-
+async function adminMw(req: Request, res: Response, next: NextFunction) {
   const { headers } = req;
 
   if (!headers.authorization?.split(" ")[1]) {
@@ -50,5 +21,4 @@ async function adminMw(req: IReq, res: IRes, next: NextFunction) {
 }
 
 // **** Export Default **** //
-
 export default adminMw;
