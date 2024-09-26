@@ -1,7 +1,22 @@
 export default {
   Base: "/api",
   Health: "/health",
-  Admin: { Base: "/admin" },
+  Admin: {
+    Base: "/admin",
+    User: {
+      Base: "/user",
+      GetAllUsers: "/getAllUsers",
+      GetUser: "/getUser",
+      UpdateUserInfo: "/updateUserInfo",
+      CreateUser: "/registerUser",
+    },
+    Lang: {
+      Base: "/lang",
+      GetAllLang: "/getAllLang",
+      UpdateLang: "/updateLang",
+      CreateLang: "/createLang",
+    },
+  },
   MetaData: {
     Base: "/metadata",
     AddAllMetaData: "/addAll",
