@@ -43,7 +43,14 @@ const initializeMetadata = async (
     }
     res.status(HttpStatusCodes.OK).json({ status: "DONE" });
   } else {
-    res.status(HttpStatusCodes.BAD_REQUEST).json({ status: "Auth Failed" });
+    logFunctionName(initializeMetadata, "error --->  ");
+
+    const response = sendResponseObject(
+      HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed",
+      "Error Happened - Auth Failed"
+    );
+    return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json(response);
   }
 };
 
